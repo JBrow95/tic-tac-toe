@@ -10,4 +10,8 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal Array, @wins_combo.class
     end
 
+    def test_if_draw_board_has_9_positions
+        c = Board.new
+        assert_equal c.draw_board.length, 9
+    end
 end
