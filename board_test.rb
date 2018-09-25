@@ -14,4 +14,9 @@ class TestUntitled < Test::Unit::TestCase
         c = Board.new
         assert_equal c.draw_board.length, 9
     end
+
+    def test_if_board_resets
+        c = Board.new
+        assert_equal c.reset_board, [1,2,3,4,5,6,7,8,9]
+    end
 end
