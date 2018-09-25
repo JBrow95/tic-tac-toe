@@ -6,4 +6,15 @@ class Board
 		@win = false
 
 	end
+
+	def draw_board
+		puts "\nTic-Tac-To Board \n \n"
+		@board.each_with_index do |x,i| 
+			print "| #{x} |" unless (i + 1) % 3 == 0
+			if (i + 1) % 3 == 0
+			print	x = "| #{x} |\n\n"
+			end
+		end
+	end
+
 end
