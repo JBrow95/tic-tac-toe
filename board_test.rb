@@ -24,5 +24,6 @@ class TestUntitled < Test::Unit::TestCase
     def test_if_get_name_gets_name_from_class_player_and_character
         n = Player.new("John","X")
         assert_equal n.name, "John"
+        assert_equal n.char, "X"
     end
 end
