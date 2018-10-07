@@ -45,4 +45,30 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal @c.available_options(8), true
         assert_equal @c.available_options(9), true
     end
+
+    def test_if_no_options_are_available_game_draws
+        @c = Board.new
+        n = @c.update_board(1,"X")
+        q = @c.update_board(5,"O")
+        w = @c.update_board(2,"X")
+        e = @c.update_board(3,"O")
+        r = @c.update_board(7,"X")
+        t = @c.update_board(4,"O")
+        y = @c.update_board(6,"X")
+        u = @c.update_board(8,"O")
+        i = @c.update_board(9,"X")
+
+        
+        assert_equal @c.available_options(1), false
+        assert_equal @c.available_options(2), false
+        assert_equal @c.available_options(3), false
+        assert_equal @c.available_options(4), false
+        assert_equal @c.available_options(5), false
+        assert_equal @c.available_options(6), false
+        assert_equal @c.available_options(7), false
+        assert_equal @c.available_options(8), false
+        assert_equal @c.available_options(9), false
+
+
+    end
 end
