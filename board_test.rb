@@ -1,5 +1,6 @@
 require_relative 'board.rb'
 require_relative 'player.rb'
+require_relative 'game.rb'
 require 'test/unit'
 
 class TestUntitled < Test::Unit::TestCase
@@ -28,5 +29,15 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal n.char, "X"
         assert_equal b.name, "Tom"
         assert_equal b.char, "O"
+    end
+
+    def test_if_the_board_puts_chars_in_open_spots_and_cant_choose_the_same_spot
+        @c = Board.new
+        n = @c.update_board(5,"X")
+        n = @c.update_board(6,"X")
+        
+        assert_equal @c.available_options(5), false
+        assert_equal @c.available_options(6), false
+        assert_equal @c.available_options(7), true
     end
 end
