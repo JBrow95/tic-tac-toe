@@ -29,15 +29,20 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal n.char, "X"
         assert_equal b.name, "Tom"
         assert_equal b.char, "O"
-    end
+ 0 end
 
     def test_if_the_board_puts_chars_in_open_spots_and_cant_choose_the_same_spot
         @c = Board.new
         n = @c.update_board(5,"X")
-        n = @c.update_board(6,"X")
-        
+        b = @c.update_board(6,"O")
+        assert_equal @c.available_options(1), true
+        assert_equal @c.available_options(2), true
+        assert_equal @c.available_options(3), true
+        assert_equal @c.available_options(4), true
         assert_equal @c.available_options(5), false
         assert_equal @c.available_options(6), false
         assert_equal @c.available_options(7), true
+        assert_equal @c.available_options(8), true
+        assert_equal @c.available_options(9), true
     end
 end
