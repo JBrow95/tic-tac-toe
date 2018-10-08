@@ -8,7 +8,6 @@ class Board
 	end
 
 	def draw_board
-		puts "\nTic-Tac-To Board \n \n"
 		@board.each_with_index do |x,i| 
 			print "| #{x} |" unless (i + 1) % 3 == 0
 			if (i + 1) % 3 == 0
@@ -21,4 +20,48 @@ class Board
 		@board = @board = [1,2,3,4,5,6,7,8,9]
 	end
 
+	def update_board(choice,char)
+		x = available_options(choice)
+		if x == true
+			@board[choice -1] = char
+			draw_board
+			#check_win(char)
+		else
+			puts "invalid move"
+			return false
+		end
+	end
+
+	def check_win(char)
+		results = []
+		@wins_combo.each do |set|
+		  set.map do |i|
+		    if @board[i] == char
+              results.push(@board[i])
+			end
+		  end
+		    check_results(results,char)
+		   
+			results = []
+		    if @win == true
+		      return @win
+			end
+		end
+	end
+
+
+	def check_results(results,char)
+		 if results[0..2] == [char,char,char]
+		 	@win = true
+		 	#results = []
+
+		 end
+	end
+
+	def available_options(choice)
+		@board.include?(choice)
+	end
 end
+
+
+
