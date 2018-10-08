@@ -27,10 +27,10 @@ class PvP
 	end
 
 	
-
 	def pvp
 		count = 0
 		marker = nil
+		win_flag = false
 		@c.draw_board
 		while count < 9
 
@@ -46,22 +46,39 @@ class PvP
 		  if update == false #stops extra counts 
 		  	count == count
 		  else
+		    checking_win = @c.check_win(char)
+		    if checking_win == true
+		    	win(marker)
+		    else
 		      count += 1
 		      if count == 9
 		  	    puts "Game is a draw"
-			  end
-			end
+		  	    win("draw")
+		      end
+		    end
+		    p count
+		  end
+
 		end
+	end
+
+	def win(player)
+		if player =="draw"
+			puts "Game was a draw."
+		else
+		  puts "#{player.name} WINS! \nWhat a Battle!"
+		end
+		puts "Press Y to play again, or any other key to quit."
+		answer = gets.chomp.capitalize
+			if answer == "Y"
+				puts "\n\nThe Board has been reset!"
+				@c =Board.new
+				@c.reset_board
+				@c.draw_board
+			else
+				abort ("Thanks for Playing!")
+			end
 	end
 
 end
 
-	# new_game = PvP.new
-	
-	# puts "Choose Game mode [CvC] [PvP] [CvP]"
-	# response = gets.chomp
-	# 	case response.downcase
-	# 	when "pvp"
-	# 		new_game.names
-	# 		new_game.pvp
-	# 	end
