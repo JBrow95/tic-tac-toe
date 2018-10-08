@@ -86,4 +86,49 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal n.name, "John"
         assert_equal n.char, "X"
     end
+
+    def test_win_possiblities
+        v = Board.new
+        c = v.update_board(1,"X")
+        c = v.update_board(2,"X")
+        c = v.update_board(3,"X")
+
+        b = Board.new
+        c = b.update_board(4,"X")
+        c = b.update_board(5,"X")
+        c = b.update_board(6,"X")   
+        
+        c = Board.new
+        a = c.update_board(7,"X")
+        a = c.update_board(8,"X")
+        a = c.update_board(9,"X")  
+        
+        d = Board.new
+        q = d.update_board(1,"X")
+        q = d.update_board(4,"X")
+        q = d.update_board(7,"X")
+
+        e = Board.new
+        q = e.update_board(3,"X")
+        q = e.update_board(6,"X")
+        q = e.update_board(9,"X")
+
+        f = Board.new
+        q = f.update_board(1,"X")
+        q = f.update_board(5,"X")
+        q = f.update_board(9,"X")
+
+        g = Board.new
+        q = g.update_board(3,"X")
+        q = g.update_board(5,"X")
+        q = g.update_board(7,"X")
+
+        assert_equal v.check_win("X"), true
+        assert_equal b.check_win("X"), true
+        assert_equal c.check_win("X"), true
+        assert_equal d.check_win("X"), true
+        assert_equal e.check_win("X"), true
+        assert_equal f.check_win("X"), true
+        assert_equal g.check_win("X"), true
+    end
 end
