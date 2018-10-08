@@ -35,6 +35,18 @@ class PlayerComp
         return choice, char
     end
 
+    def s_move(player)
+        puts "\n#{player.name} Your Turn: #{player.char}." 
+        sleep 1 
+        choice = 0
+        until @c.available_options(choice) == true
+            choice += 1
+        end
+        puts choice
+        char = player.char
+        return choice, char
+    end
+
     def random_cpu
         count = 0
         marker = nil
