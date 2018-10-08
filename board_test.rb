@@ -48,6 +48,7 @@ class TestUntitled < Test::Unit::TestCase
 
     def test_if_no_options_are_available_game_draws
         @c = Board.new
+        @p = PvP.new
         n = @c.update_board(1,"X")
         q = @c.update_board(5,"O")
         w = @c.update_board(2,"X")
@@ -67,6 +68,8 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal @c.available_options(7), false
         assert_equal @c.available_options(8), false
         assert_equal @c.available_options(9), false
+
+        assert_equal @p.win("draw"), true
     end
 
     def test_if_win_combo_works_when_char_is_3_in_a_row
