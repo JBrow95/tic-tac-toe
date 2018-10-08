@@ -134,9 +134,9 @@ class TestUntitled < Test::Unit::TestCase
     end
 
     def test_if_random_computer_makes_random_move
-        v = RandomComp.new
+        v = PlayerComp.new
         cpu1 = Player.new("John", "X")
-        s = v.random_move(cpu1)
+        s = v.cpu_move(cpu1)
         arr = [1,2,3,4,5,6,7,8,9]
         arr.each do |c|
             if s.include?(c)
