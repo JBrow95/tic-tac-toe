@@ -1,7 +1,7 @@
 require_relative 'board.rb'
 require_relative 'player.rb'
 require_relative 'game.rb'
-require_relative 'Computer.rb'
+require_relative 'computer.rb'
 require 'test/unit'
 
 class TestUntitled < Test::Unit::TestCase
@@ -133,8 +133,18 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal g.check_win("X"), true
     end
 
-    def test_if_random_computer_takes_random_spot
+    def test_if_random_computer_makes_random_move
         v = RandomComp.new
-
+        cpu1 = Player.new("John", "X")
+        s = v.random_move(cpu1)
+        arr = [1,2,3,4,5,6,7,8,9]
+        arr.each do |c|
+            if s.include?(c)
+                return true
+            else
+                return false
+            end
+        end
+        assert_equal arr, true
     end
 end
