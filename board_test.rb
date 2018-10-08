@@ -147,4 +147,17 @@ class TestUntitled < Test::Unit::TestCase
         end
         assert_equal arr, true
     end
+
+    def test_if_computer_makes_sequential_move
+        v = PlayerComp.new
+        cpu1 = Player.new("Tim","X")
+        s = v.s_move(cpu1)
+        b = v.c.board
+        assert_equal b[0], s[0]
+        assert_equal s[1], "X"
+        v.c.update_board(1,"X")
+        k = v.s_move(cpu1)
+        assert_equal b[1], k[0]
+       
+    end
 end
