@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 require_relative 'player.rb'
 require_relative 'game.rb'
+require_relative 'Computer.rb'
 require 'test/unit'
 
 class TestUntitled < Test::Unit::TestCase
@@ -130,5 +131,10 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal e.check_win("X"), true
         assert_equal f.check_win("X"), true
         assert_equal g.check_win("X"), true
+    end
+
+    def test_if_random_computer_takes_random_spot
+        v = RandomComp.new
+
     end
 end

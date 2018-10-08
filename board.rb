@@ -61,6 +61,8 @@ class Board
 	def available_options(choice)
 		@board.include?(choice)
 	end
+
+	attr_reader :board
 end
 
 
