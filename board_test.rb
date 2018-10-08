@@ -29,7 +29,7 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal n.char, "X"
         assert_equal b.name, "Tom"
         assert_equal b.char, "O"
-  end
+    end
 
     def test_if_the_board_puts_chars_in_open_spots_and_cant_choose_the_same_spot
         @c = Board.new
@@ -47,29 +47,27 @@ class TestUntitled < Test::Unit::TestCase
     end
 
     def test_if_no_options_are_available_game_draws
-        @c = Board.new
-        @p = PvP.new
-        n = @c.update_board(1,"X")
-        q = @c.update_board(5,"O")
-        w = @c.update_board(2,"X")
-        e = @c.update_board(3,"O")
-        r = @c.update_board(7,"X")
-        t = @c.update_board(4,"O")
-        y = @c.update_board(6,"X")
-        u = @c.update_board(8,"O")
-        i = @c.update_board(9,"X")
+        @b = Board.new
+      
+        n = @b.update_board(1,"X")
+        q = @b.update_board(5,"O")
+        w = @b.update_board(2,"X")
+        e = @b.update_board(3,"O")
+        r = @b.update_board(7,"X")
+        t = @b.update_board(4,"O")
+        y = @b.update_board(6,"X")
+        u = @b.update_board(8,"O")
+        i = @b.update_board(9,"X")
 
-        assert_equal @c.available_options(1), false
-        assert_equal @c.available_options(2), false
-        assert_equal @c.available_options(3), false
-        assert_equal @c.available_options(4), false
-        assert_equal @c.available_options(5), false
-        assert_equal @c.available_options(6), false
-        assert_equal @c.available_options(7), false
-        assert_equal @c.available_options(8), false
-        assert_equal @c.available_options(9), false
-
-        assert_equal @p.win("draw"), true
+        assert_equal @b.available_options(1), false
+        assert_equal @b.available_options(2), false
+        assert_equal @b.available_options(3), false
+        assert_equal @b.available_options(4), false
+        assert_equal @b.available_options(5), false
+        assert_equal @b.available_options(6), false
+        assert_equal @b.available_options(7), false
+        assert_equal @b.available_options(8), false
+        assert_equal @b.available_options(9), false
     end
 
     def test_if_win_combo_works_when_char_is_3_in_a_row
@@ -81,5 +79,11 @@ class TestUntitled < Test::Unit::TestCase
         n = @c.update_board(3,"X")
         
         assert_equal @c.check_win("X"), true
+    end
+
+    def test_if_player_class_holds_name
+        n = Player.new("John","X")
+        assert_equal n.name, "John"
+        assert_equal n.char, "X"
     end
 end
