@@ -153,13 +153,18 @@ class TestUntitled < Test::Unit::TestCase
         cpu1 = Player.new("Tim","X")
         s = v.s_move(cpu1)
         b = v.c.board
+
         assert_equal b[0], s[0]
         assert_equal s[1], "X"
+
         v.c.update_board(1,"X")
         k = v.s_move(cpu1)
+
         assert_equal b[1], k[0]     
+
         v.c.update_board(2,"X")
         f = v.s_move(cpu1)
+        
         assert_equal b[2], f[0]
     end
 
