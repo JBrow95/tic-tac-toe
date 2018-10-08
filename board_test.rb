@@ -29,7 +29,7 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal n.char, "X"
         assert_equal b.name, "Tom"
         assert_equal b.char, "O"
- 0 end
+  end
 
     def test_if_the_board_puts_chars_in_open_spots_and_cant_choose_the_same_spot
         @c = Board.new
@@ -58,7 +58,6 @@ class TestUntitled < Test::Unit::TestCase
         u = @c.update_board(8,"O")
         i = @c.update_board(9,"X")
 
-        
         assert_equal @c.available_options(1), false
         assert_equal @c.available_options(2), false
         assert_equal @c.available_options(3), false
@@ -68,7 +67,16 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal @c.available_options(7), false
         assert_equal @c.available_options(8), false
         assert_equal @c.available_options(9), false
+    end
 
-
+    def test_if_win_combo_works_when_char_is_3_in_a_row
+        @c = Board.new
+        n = @c.update_board(1,"X")
+        q = @c.update_board(4,"O")
+        n = @c.update_board(2,"X")
+        q = @c.update_board(5,"O")
+        n = @c.update_board(3,"X")
+        
+        assert_equal @c.check_win("X"), true
     end
 end
