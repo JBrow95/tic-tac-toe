@@ -5,7 +5,26 @@ body {
 	margin: 0;
 }
 
+.wrap {
+	margin: 40px auto 0 auto;
+	width: 900px;
+	display: flex;
+	
+}
 
+.wrap1 {
+	flex: 1;
+	text-align: center;
+}
+
+.wrap2 {
+	flex: 6;
+}
+
+.wrap3 {
+	flex: 1;
+	text-align: center;
+}
 
 h1 {
 	color: red;
@@ -13,7 +32,6 @@ h1 {
 
 table {
 	box-sizing: border-box;
-
 	line-height: 130px;
 	border-collapse: collapse;
 }
@@ -35,7 +53,10 @@ td {
 	text-align: center;
 }
 
-td input[type="submit"] {
-	height: 90px;
-	width: 90%;
+button {
+	background: transparent;
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 100px;
 }
