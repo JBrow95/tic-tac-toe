@@ -1,6 +1,7 @@
 require 'sinatra'
 require_relative 'game.rb'
 require_relative 'board.rb'
+require_relative 'computer_front.rb'
 enable :sessions
 
 get '/' do
@@ -16,14 +17,20 @@ post '/game' do
 	choice = params[:choice]
 	p choice
 
-	if board.available_options(choice.to_i)
+		if pvc.c.available_options(choice.to_i) == true
+		pvc.c.update_board(choice.to_i, "X")
 		board.update_board(choice.to_i, "X")
 		pvc.c_arr << choice
+		print pvc.c_arr
+		print board.board
 		board.check_win("X")
 		if board.win
 			redirect '/?win'
 		end
-		var1, var2 = pvc.h_move(Player.new("tom", "O"))
+
+	
+		var1, var2 = pvc.s_move(Player.new("Tom", "O"))
+		pvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
 		board.check_win("O")
 		if board.win
@@ -32,7 +39,6 @@ post '/game' do
 	else
 		redirect '/?a=b'
 	end
-
 	if board.moves_taken >= 9
 		redirect '/?draw'
 	end
