@@ -7,7 +7,7 @@ body {
 
 .wrap {
 	margin: 40px auto 0 auto;
-	width: 900px;
+	width: 1000px;
 	display: flex;
 	
 }
@@ -18,7 +18,7 @@ body {
 }
 
 .wrap2 {
-	flex: 6;
+	flex: 9;
 }
 
 .wrap3 {
@@ -38,6 +38,8 @@ table {
 
 table, tr, td{
 	border: 1px solid;
+	border-top: none;
+	border-left: none;
 	margin: 40px auto 0 auto;
 	width: 50%;
 }
@@ -52,6 +54,19 @@ td {
 	height: 33%;
 	text-align: center;
 }
+
+td:first-of-type {
+	border-left-color: transparent;
+}
+
+td:nth-of-type(3) {
+	border-right-color: transparent;	
+}
+
+tr:nth-of-type(3) td{
+	border-bottom-color: transparent;
+}
+
 
 button {
 	background: transparent;
