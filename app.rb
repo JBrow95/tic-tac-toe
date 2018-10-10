@@ -24,7 +24,7 @@ get '/seq_game' do
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
 	
-	erb :seq_game, locals:{board: session[:board], state: ""}
+	erb :seq_game, locals:{board: session[:board]}
 end
 
 post '/seq_game' do
@@ -73,8 +73,8 @@ get '/game' do
 		
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
-	
-	erb :game, locals:{board: session[:board], state: ""}
+	state = session[:state] || "Lets Play"
+	erb :game, locals:{board: session[:board], state: state}
 end
 
 post '/game' do
@@ -102,7 +102,8 @@ post '/game' do
 		board.update_board(var1.to_i, var2)
 		board.check_win("O")
 		if board.win
-			redirect '/game?ComputerWins'
+			session[:state] = "Computer Won"
+			redirect '/game'
 		end
 	else
 		redirect '/game?invalide move!!!'
@@ -132,7 +133,7 @@ get '/rand_game' do
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
 	
-	erb :random, locals:{board: session[:board], state: ""}
+	erb :random, locals:{board: session[:board]}
 end
 
 post '/rand_game' do
