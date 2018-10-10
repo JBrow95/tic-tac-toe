@@ -77,3 +77,9 @@ button {
 	font-size: 4rem;
 	text-align: center;
 }
+
+button img {
+	margin: 0;
+	padding: 0;
+	height: 70%;
+}
