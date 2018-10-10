@@ -62,7 +62,8 @@ post '/replay' do
 	b = session[:board]
 	pvc = session[:pvc]
 	pvc.c.reset_board
-	b.board.reset_board
+	b.reset_board
 	pvc.c_arr.clear
+
 	redirect '/game'
 end
