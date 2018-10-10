@@ -175,5 +175,9 @@ class TestUntitled < Test::Unit::TestCase
         pvc.c.update_board(choice, "O")
         pvc.c_arr << choice.to_s
         assert_equal pvc.c_arr, ["5"]
+        choice2 = 7
+        pvc.c.update_board(choice2, "O")
+        pvc.c_arr << choice2.to_s
+        assert_equal pvc.c_arr, ["5", "7"]
     end
 end
