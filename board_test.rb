@@ -168,8 +168,8 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal b[2], f[0]
     end
 
-    def test_if_hard_cpu_blocks_move
-        
-        
+    def test_if_player_moves_return_array_of_moves
+        pvc = PlayerComp.new
+        assert_equal pvc.c_arr.class, Array
     end
 end
