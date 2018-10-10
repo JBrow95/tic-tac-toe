@@ -171,5 +171,9 @@ class TestUntitled < Test::Unit::TestCase
     def test_if_player_moves_return_array_of_moves
         pvc = PlayerComp.new
         assert_equal pvc.c_arr.class, Array
+        choice = 5
+        pvc.c.update_board(choice, "O")
+        pvc.c_arr << choice.to_s
+        assert_equal pvc.c_arr, ["5"]
     end
 end
