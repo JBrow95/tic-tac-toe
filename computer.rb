@@ -294,6 +294,7 @@ class PlayerComp
         counter = 1
         until @c.available_options(choice_array[counter]) == true
             counter += 1
+            break
         end
         choice = choice_array[counter]
         p choice
