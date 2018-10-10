@@ -35,7 +35,7 @@ post '/game' do
 		pvc.c_arr << choice
 		print pvc.c_arr
 		print board.board
-		pvc.c.check_win("X")
+		board.check_win("X")
 		if board.win
 			redirect '/game?playerwins'
 			
@@ -45,7 +45,7 @@ post '/game' do
 		var1, var2 = pvc.h_move(Player.new("Tom", "O"))
 		pvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
-		pvc.c.check_win("O")
+		board.check_win("O")
 		if board.win
 			redirect '/game?ComputerWins'
 		end
@@ -59,10 +59,11 @@ post '/game' do
 end
 
 post '/replay' do
-	b = session[:board]
+	board = session[:board]
 	pvc = session[:pvc]
 	pvc.c.reset_board
-	b.reset_board
+	board.reset_board
+	
 	pvc.c_arr.clear
 	redirect '/game'
 end
