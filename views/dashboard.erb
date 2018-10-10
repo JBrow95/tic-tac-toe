@@ -9,23 +9,9 @@
 			<h1>Player1</h1>
 		</div>
 
-		<div class="wrap2">
-			<form method="post" action="game">
-				<table>
-					<% board.board.each_with_index do |n,i|%>
-						<% if i == 0 || i == 3 || i == 6%>
-						<tr>
-						<% end%>
-						<td>
-							<input type='submit' value='<%= n%>' name="choice[]">
-						</td>
-						<% if i == 2 || i == 5 || i == 8%>
-						</tr>
-						<% end%>
-					<% end%>
-				</table>
-			</form>
-		</div>
+		<form method="post" action="play">
+			<input type="submit" value="Play Game">
+		</form>
 
 		<div class="wrap3">
 			<h1>Player2</h1>

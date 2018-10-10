@@ -82,3 +82,41 @@ class PvP
 
 end
 
+# new_game = PvP.new
+# 	game = PlayerComp.new
+# 	c = RandomComp.new
+# 	puts "Choose Game mode [CvC] [PvP] [CvP]"
+# 	response = gets.chomp
+# 		case response.downcase
+# 		when "cvc" 
+# 			puts "Choose mode R[Random] S[Sequential] U[Unbeatable]"
+# 			response1 = gets.chomp
+# 			case response1.downcase
+# 			when 'r'
+# 				c.comp_names
+# 				c.random
+# 			when 's'
+# 				c.comp_names
+# 				c.seq_cpu
+# 			when 'u'
+# 				c.comp_names
+# 				c.hard
+# 			end
+# 		when "pvp"
+# 			new_game.names
+# 			new_game.pvp
+# 		when "cvp"
+# 			puts "R[Random] S[Sequential] U[Unbeatable]"
+# 			response2 = gets.chomp
+# 			case response2.downcase
+# 			when 'r'
+# 				game.get_name
+# 				game.random_cpu
+# 			when 's'
+# 				game.get_name
+# 				game.seq_cpu
+# 			when 'u'
+# 				game.get_name
+# 				game.hard_cpu
+# 			end
+# 		end

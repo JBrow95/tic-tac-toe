@@ -164,8 +164,12 @@ class TestUntitled < Test::Unit::TestCase
 
         v.c.update_board(2,"X")
         f = v.s_move(cpu1)
-        
+
         assert_equal b[2], f[0]
     end
 
+    def test_if_hard_cpu_blocks_move
+        
+        
+    end
 end
