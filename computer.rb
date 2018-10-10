@@ -291,7 +291,12 @@ class PlayerComp
         sleep 1
         choice_array = [1,2,3,4,5,6,7,8,9]
         choice_array.shuffle!
-        choice = choice_array.pop
+        counter = 1
+        until @c.available_options(choice_array[counter]) == true
+            counter += 1
+        end
+        choice = choice_array[counter]
+        p choice
         char = player.char
         return choice, char
     end
