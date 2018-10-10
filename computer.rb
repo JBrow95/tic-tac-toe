@@ -145,22 +145,30 @@ class PlayerComp
             puts "\n#{player.name} Your Turn: #{player.char}." 
             sleep 1 
         
-            wins_game = [[1,2,3],[7,4,1],[5,2,8],[7,1,4],[9,7,8],[7,9,8],[1,3,2],[5,3,7],[3,6,9],[3,9,6],[9,6,3],[5,4,6],[5,6,4],[5,8,2],[9,3,6],[8,5,2],[6,5,4],[4,5,6],[7,8,9],[9,8,7],[8,9,7],[1,4,7],[2,5,8],[1,5,9],[3,5,7],[1,7,4],[7,5,3],[6,7,8],[2,9,6],[8,1,4],[3,8,6],[4,6,2],[6,8,1],[3,7,6],[7,3,4],[1,3,4],[1,8,4]]
-            middle_corner = [[1, 5, 7], [3, 5, 9], [7, 5, 9], [9, 5, 3],[1,9,4],[6,1,3]]
+            stupid = [[2,5,8]]
+            wins_game = [[1,2,3],[7,4,1],[7,1,4],[9,7,8],[7,9,8],[1,3,2],[5,3,7],[3,6,9],[3,9,6],[9,6,3],[5,4,6],[5,6,4],[5,8,2],[9,3,6],[8,5,2],[6,5,4],[4,5,6],[7,8,9],[9,8,7],[8,9,7],[1,4,7],[5,2,8],[2,5,8],[1,5,9],[3,5,7],[1,7,4],[7,5,3],[6,7,8],[2,9,6],[8,1,4],[3,8,6],[4,6,2],[6,8,1],[3,7,6],[7,3,4],[1,8,4]]
+            middle_corner = [[1, 5, 7], [3, 5, 9], [7, 5, 9],[5,9,3], [9, 5, 3],[1,9,4],[6,1,3]]
 
             if @c_arr.include?("5") == false && @c.available_options(5) == true
                 choice = 5
             end
+
+            stupid.each do |ti|
+                if @c_arr.include?(ti[0].to_s) && @c_arr.include?(ti[1].to_s) && @c.available_options(ti[2]) == true
+                    choice = 8
+                    break
+                end
+            end
             
             middle_corner.each do |m|
-                if @c_arr.include?(m[0].to_s) && @c_arr.include?(m[1].to_s) && @c.board.include?(m[2]) == true
+                if @c_arr.include?(m[0].to_s) && @c_arr.include?(m[1].to_s) && @c.available_options(m[2]) == true
                     choice = m[2]
                     break
                 end
             end
             
              wins_game.each do |n|
-                 if @c_arr.include?(n[0].to_s) == true && @c_arr.include?(n[1].to_s) == true  && @c.board.include?(n[2]) == true
+                 if @c_arr.include?(n[0].to_s) == true && @c_arr.include?(n[1].to_s) == true  && @c.available_options(n[2]) == true
                      choice = n[2]
                      break
                 end
@@ -168,7 +176,7 @@ class PlayerComp
 
             
             wins_game.each do |c|
-                if @c_arr.include?(c[0].to_s) == false && @c_arr.include?(c[1].to_s) == false  && @c.board.include?(c[0]) == false && @c.board.include?(c[1]) == false && @c.board.include?(c[2]) == true
+                if @c_arr.include?(c[0].to_s) == false && @c_arr.include?(c[1].to_s) == false  && @c.available_options(c[0]) == false && @c.available_options(c[1]) == false && @c.available_options(c[2]) == true
                     choice = c[2]
                     break
                 end
@@ -183,9 +191,8 @@ class PlayerComp
                     break
                 end
                end
-            end
         
-           
+        end
             puts choice
             char = player.char
             return choice, char
