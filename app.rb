@@ -50,7 +50,7 @@ post '/game' do
 			redirect '/game?ComputerWins'
 		end
 	else
-		redirect '/?a=b'
+		redirect '/game?invalide move!!!'
 	end
 	if board.moves_taken >= 9
 		redirect '/?draw'
