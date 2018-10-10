@@ -180,4 +180,13 @@ class TestUntitled < Test::Unit::TestCase
         pvc.c_arr << choice2.to_s
         assert_equal pvc.c_arr, ["5", "7"]
     end
+
+    def test_if_hard_cpu_takes_5_as_first_move_if_player_choice_anything_else
+        pvc = PlayerComp.new
+        choice = 1
+        pvc.c_arr << choice.to_s
+        var1, var2 = pvc.h_move(Player.new("Tom", "O"))
+        pvc.c.update_board(var1.to_i, var2)
+        assert_equal var1, 5
+    end
 end
