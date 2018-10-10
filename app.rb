@@ -64,12 +64,8 @@ post '/seq_game' do
 end
 
 post '/seq_replay' do
-	b = session[:board]
-	pvc = session[:pvc]
-	pvc.c.reset_board
-	b.reset_board
-	pvc.c_arr.clear
-
+	session[:board] = Board.new
+	session[:pvc] = PlayerComp.new
 	redirect '/seq_game'
 end
 
@@ -94,7 +90,7 @@ post '/game' do
 		pvc.c_arr << choice
 		print pvc.c_arr
 		print board.board
-		pvc.c.check_win("X")
+		board.check_win("X")
 		if board.win
 			redirect '/game?playerwins'
 			
@@ -104,26 +100,23 @@ post '/game' do
 		var1, var2 = pvc.h_move(Player.new("Tom", "O"))
 		pvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
-		pvc.c.check_win("O")
+		board.check_win("O")
 		if board.win
 			redirect '/game?ComputerWins'
 		end
 	else
 		redirect '/game?invalide move!!!'
 	end
-	if board.moves_taken >= 9
+	if pvc.c.moves_taken >= 9
 		redirect '/?draw'
 	end
 	redirect '/game'
 end
 
 post '/replay' do
-	b = session[:board]
-	pvc = session[:pvc]
-	pvc.c.reset_board
-	b.reset_board
-	pvc.c_arr.clear
-
+	
+	session[:board] = Board.new
+	session[:pvc] = PlayerComp.new
 	redirect '/game'
 end
 
@@ -155,7 +148,7 @@ post '/rand_game' do
 		pvc.c_arr << choice
 		print pvc.c_arr
 		print board.board
-		pvc.c.check_win("X")
+		board.c.check_win("X")
 		if board.win
 			redirect '/rand_game?playerwins'
 			
@@ -165,7 +158,7 @@ post '/rand_game' do
 		var1, var2 = pvc.cpu_move(Player.new("Tom", "O"))
 		pvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
-		pvc.c.check_win("O")
+		board.c.check_win("O")
 		if board.win
 			redirect '/rand_game?ComputerWins'
 		end
@@ -179,11 +172,7 @@ post '/rand_game' do
 end
 
 post '/rand_replay' do
-	b = session[:board]
-	pvc = session[:pvc]
-	pvc.c.reset_board
-	b.reset_board
-	pvc.c_arr.clear
-
+	session[:board] = Board.new
+	session[:pvc] = PlayerComp.new
 	redirect '/rand_game'
 end
