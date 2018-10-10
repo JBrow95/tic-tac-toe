@@ -1,7 +1,7 @@
 require 'sinatra'
 require_relative 'game.rb'
 require_relative 'board.rb'
-require_relative 'computer_front.rb'
+
 enable :sessions
 
 
