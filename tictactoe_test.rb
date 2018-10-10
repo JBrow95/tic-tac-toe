@@ -199,7 +199,7 @@ class TestUntitled < Test::Unit::TestCase
         assert_equal var1, 1
     end
 
-    def test_if_hard_cpu_blocks_player
+    def test_if_hard_cpu_blocks_player_123
         pvc = PlayerComp.new
         choice = 1
         pvc.c.update_board(choice, "X")
@@ -212,5 +212,20 @@ class TestUntitled < Test::Unit::TestCase
         var1, var2 = pvc.h_move(Player.new("Tom", "O"))
         pvc.c.update_board(var1.to_i, var2)
         assert_equal var1, 3
+    end
+
+    def test_if_hard_cpu_blocks_player_147
+        pvc = PlayerComp.new
+        choice = 1
+        pvc.c.update_board(choice, "X")
+        pvc.c_arr << choice.to_s
+        var1, var2 = pvc.h_move(Player.new("Tom", "O"))
+        pvc.c.update_board(var1.to_i, var2)
+        choice2 = 7
+        pvc.c.update_board(choice2, "X")
+        pvc.c_arr << choice2.to_s
+        var1, var2 = pvc.h_move(Player.new("Tom", "O"))
+        pvc.c.update_board(var1.to_i, var2)
+        assert_equal var1, 4
     end
 end
