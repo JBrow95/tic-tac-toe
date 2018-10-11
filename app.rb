@@ -247,7 +247,7 @@ end
 
 # ------------------------------------------------------------
 # Computer vs computer
-post '/h_comp' do
+post '/comp1' do
 
 	redirect '/h_game'
 end
@@ -255,22 +255,23 @@ end
 get '/h_game' do
 		
 	session[:board] = session[:board] || Board.new
-	session[:pvc] = session[:pvc] || PlayerComp.new
+	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :game, locals:{board: session[:board], state: state}
+	erb :h_comp, locals:{board: session[:board], state: state}
 end
 
 post '/h_game' do
-	pvc = session[:pvc]
+	cvc = session[:cvc]
 	board = session[:board]
 	choice = params[:choice]
 	board.moves_taken = 0
 	p choice
 
-		if pvc.c.available_options(choice.to_i) == true
-		pvc.c.update_board(choice.to_i, "X")
-		board.update_board(choice.to_i, "X")
-		pvc.c_arr << choice
+		if cvc.c.available_options(choice.to_i) == true
+		var1, var2 = cvc.h_move2(Player.new("Jim", "X"))
+		cvc.c.update_board(var1.to_i, var2)
+		board.update_board(var1.to_i, var2)
+		cvc.c_arr << var1
 		print pvc.c_arr
 		print board.board
 		board.check_win("X")
@@ -281,9 +282,10 @@ post '/h_game' do
 		end
 
 	
-		var1, var2 = pvc.h_move(Player.new("Tom", "O"))
-		pvc.c.update_board(var1.to_i, var2)
-		board.update_board(var1.to_i, var2)
+		var3, var4 = cvc.h_move(Player.new("Tom", "O"))
+		cvc.c.update_board(var3.to_i, var4)
+		board.update_board(var3.to_i, var4)
+		cvc.c_arr << var3
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
@@ -292,7 +294,7 @@ post '/h_game' do
 	else
 		redirect '/game?invalide move!!!'
 	end
-	if pvc.c.moves_taken >= 9
+	if cvc.c.moves_taken >= 9
 		session[:state] = "Draw"
 		redirect '/h_game'
 	end
@@ -302,7 +304,7 @@ end
 post '/h_replay' do
 	
 	session[:board] = Board.new
-	session[:pvc] = PlayerComp.new
+	session[:cvc] = PlayerComp.new
 	session[:state] = "Lets play"
 	redirect '/h_game'
 end

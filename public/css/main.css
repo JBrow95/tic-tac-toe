@@ -1,4 +1,5 @@
 body {
+	font-family: 'Quicksand';
 	height: 100vh;
 	width: 100vw;
 	padding: 0;
@@ -19,7 +20,7 @@ header {
 
 header h1 {
 	color: #fff;
-	font-family: sans-serif;
+	font-weight: bold;
 	animation: fade-in 4s;
 }
 
@@ -121,22 +122,64 @@ button img {
 }
 
 .bots {
+	margin: 70px auto 0 auto;
+	width: 500px;
 	text-align: center;
+	font-weight: lighter;
 }
 
+.bots h2 {
+	color: #fff;
+	margin-top: 0;
+	font-weight: lighter;	
+	animation: drop-out 2s;
+}
+
+@keyframes drop {
+	from {
+		opacity: 0;
+		height: 0;
+	}
+	to {
+		opacity: 1;
+		height: 2rem;
+	}
+}
+
+@keyframes drop-out {
+	from {
+		opacity: 0;
+		left: 0;
+	}
+	to {
+		opacity: 1;
+		left: 50%;
+	}
+}
+
+
 .bots input{
-	width: 8rem;
-	height: 1.7rem;
+	width: 10rem;
+	height: 2rem;
 	outline: none;
 	border: 1px solid #ccc;
-	margin-bottom: 2px;
+	margin-bottom: 5px;
 	border-radius: 5px;
 	background: transparent;
 	color: white;
 	text-align: center;
+	animation: drop 2s;
 }
 
 .bots input:hover {
 	background-color: #fff;
 	color: #000;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
 }
