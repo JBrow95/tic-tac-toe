@@ -199,35 +199,34 @@ post '/play_game' do
 	board = session[:board]
 	choice = params[:choice]
 	board.moves_taken = 0
+
 	p choice
 
 
 		if pvc.c.available_options(choice.to_i) == true
-			until choice != nil
-		pvc.c.update_board(choice.to_i, "X")
-		board.update_board(choice.to_i, "X")
-		pvc.c_arr << choice
-		print pvc.c_arr
-		print board.board
-			end
-		board.check_win("X")
-		if board.win
-			session[:state] = "Player1 Won"
-			redirect '/play_game'
 			
-		end
+			pvc.c.update_board(choice.to_i, "X")
+			board.update_board(choice.to_i, "X")
+			pvc.c_arr << choice
+			print pvc.c_arr
+			print board.board
+			board.check_win("X")
+			if board.win
+				session[:state] = "Player1 Won"
+				redirect '/play_game'
+			end
 	
 		
-		pvc.c.update_board(choice.to_i, "O")
-		board.update_board(choice.to_i, "O")
-		board.check_win("O")
-		if board.win
-			session[:state] = "Player2 Won"
-			redirect '/play_game'
+			pvc.c.update_board(choice.to_i, "O")
+			board.update_board(choice.to_i, "O")
+			board.check_win("O")
+			if board.win
+				session[:state] = "Player2 Won"
+				redirect '/play_game'
+			end
+		else
+			redirect '/play_game?invalide move!!!'
 		end
-	else
-		redirect '/play_game?invalide move!!!'
-	end
 	if pvc.c.moves_taken >= 9
 		session[:state] = "Draw"
 		redirect '/play_game'
@@ -272,7 +271,7 @@ post '/h_game' do
 		cvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
 		cvc.c_arr << var1
-		print pvc.c_arr
+		print cvc.c_arr
 		print board.board
 		board.check_win("X")
 		if board.win
@@ -285,7 +284,7 @@ post '/h_game' do
 		var3, var4 = cvc.h_move(Player.new("Tom", "O"))
 		cvc.c.update_board(var3.to_i, var4)
 		board.update_board(var3.to_i, var4)
-		cvc.c_arr << var3
+		cvc.c_arr2 << var3
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
@@ -304,7 +303,7 @@ end
 post '/h_replay' do
 	
 	session[:board] = Board.new
-	session[:cvc] = PlayerComp.new
+	session[:cvc] = RandomComp.new
 	session[:state] = "Lets play"
 	redirect '/h_game'
 end

@@ -173,6 +173,7 @@ header h1 {
 	background: transparent;
 	color: white;
 	text-align: center;
+	animation-delay: 6s;
 	animation: drop 2s;
 }
 
