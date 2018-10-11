@@ -242,3 +242,67 @@ post '/play_replay' do
 	session[:state] = "Lets play"
 	redirect '/play_game'
 end
+
+
+
+# ------------------------------------------------------------
+# Computer vs computer
+post '/h_comp' do
+
+	redirect '/h_game'
+end
+
+get '/h_game' do
+		
+	session[:board] = session[:board] || Board.new
+	session[:pvc] = session[:pvc] || PlayerComp.new
+	state = session[:state] || "Lets Play"
+	erb :game, locals:{board: session[:board], state: state}
+end
+
+post '/h_game' do
+	pvc = session[:pvc]
+	board = session[:board]
+	choice = params[:choice]
+	board.moves_taken = 0
+	p choice
+
+		if pvc.c.available_options(choice.to_i) == true
+		pvc.c.update_board(choice.to_i, "X")
+		board.update_board(choice.to_i, "X")
+		pvc.c_arr << choice
+		print pvc.c_arr
+		print board.board
+		board.check_win("X")
+		if board.win
+			session[:state] = "Player Won"
+			redirect '/h_game'
+			
+		end
+
+	
+		var1, var2 = pvc.h_move(Player.new("Tom", "O"))
+		pvc.c.update_board(var1.to_i, var2)
+		board.update_board(var1.to_i, var2)
+		board.check_win("O")
+		if board.win
+			session[:state] = "Computer Won"
+			redirect '/h_game'
+		end
+	else
+		redirect '/game?invalide move!!!'
+	end
+	if pvc.c.moves_taken >= 9
+		session[:state] = "Draw"
+		redirect '/h_game'
+	end
+	redirect '/h_game'
+end
+
+post '/h_replay' do
+	
+	session[:board] = Board.new
+	session[:pvc] = PlayerComp.new
+	session[:state] = "Lets play"
+	redirect '/h_game'
+end
