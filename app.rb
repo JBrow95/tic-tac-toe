@@ -152,7 +152,7 @@ post '/rand_game' do
 		pvc.c_arr << choice
 		print pvc.c_arr
 		print board.board
-		board.c.check_win("X")
+		board.check_win("X")
 		if board.win
 			redirect '/rand_game?playerwins'
 			
@@ -162,7 +162,7 @@ post '/rand_game' do
 		var1, var2 = pvc.cpu_move(Player.new("Tom", "O"))
 		pvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
-		board.c.check_win("O")
+		board.check_win("O")
 		if board.win
 			redirect '/rand_game?ComputerWins'
 		end

@@ -303,14 +303,17 @@ class PlayerComp
         puts "\n#{player.name} Your Turn: #{player.char}." 
         sleep 1
         choice_array = [1,2,3,4,5,6,7,8,9]
-        choice_array.shuffle!
-        counter = 1
-        until @c.available_options(choice_array[counter]) == true
-            counter += 1
-            break
+        choice = 0
+        unless @c_arr.count == 5
+            choice = choice_array.shuffle
+            choice.each do |x|
+                if @c.available_options(x) == true
+                    choice = x.to_i
+                    break
+                end
+        
+            end
         end
-        choice = choice_array[counter]
-        p choice
         char = player.char
         return choice, char
     end
@@ -319,11 +322,13 @@ class PlayerComp
         puts "\n#{player.name} Your Turn: #{player.char}." 
         sleep 1 
         choice = 0
-        until @c.available_options(choice) == true
-            choice += 1
+        unless @c_arr.count == 5
+            until @c.available_options(choice) == true 
+                choice += 1
+            end
         end
         puts choice
-        char = player.char
+            char = player.char
         return choice, char
     end
 
