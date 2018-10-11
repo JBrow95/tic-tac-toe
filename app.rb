@@ -92,7 +92,8 @@ post '/game' do
 		print board.board
 		board.check_win("X")
 		if board.win
-			redirect '/game?playerwins'
+			session[:state] = "Player Won"
+			redirect '/game'
 			
 		end
 
@@ -109,7 +110,8 @@ post '/game' do
 		redirect '/game?invalide move!!!'
 	end
 	if pvc.c.moves_taken >= 9
-		redirect '/?draw'
+		session[:state] = "Draw"
+		redirect '/game'
 	end
 	redirect '/game'
 end
@@ -118,6 +120,7 @@ post '/replay' do
 	
 	session[:board] = Board.new
 	session[:pvc] = PlayerComp.new
+	session[:state] = "Lets play"
 	redirect '/game'
 end
 
@@ -176,4 +179,66 @@ post '/rand_replay' do
 	session[:board] = Board.new
 	session[:pvc] = PlayerComp.new
 	redirect '/rand_game'
+end
+
+post '/pvp' do
+
+	redirect '/play_game'
+end
+
+get '/play_game' do
+		
+	session[:board] = session[:board] || Board.new
+	session[:pvc] = session[:pvc] || PlayerComp.new
+	state = session[:state] || "Lets Play"
+	erb :player, locals:{board: session[:board], state: state}
+end
+
+post '/play_game' do
+	pvc = session[:pvc]
+	board = session[:board]
+	choice = params[:choice]
+	board.moves_taken = 0
+	p choice
+
+
+		if pvc.c.available_options(choice.to_i) == true
+			until choice != nil
+		pvc.c.update_board(choice.to_i, "X")
+		board.update_board(choice.to_i, "X")
+		pvc.c_arr << choice
+		print pvc.c_arr
+		print board.board
+			end
+		board.check_win("X")
+		if board.win
+			session[:state] = "Player1 Won"
+			redirect '/play_game'
+			
+		end
+	
+		
+		pvc.c.update_board(choice.to_i, "O")
+		board.update_board(choice.to_i, "O")
+		board.check_win("O")
+		if board.win
+			session[:state] = "Player2 Won"
+			redirect '/play_game'
+		end
+	else
+		redirect '/play_game?invalide move!!!'
+	end
+	if pvc.c.moves_taken >= 9
+		session[:state] = "Draw"
+		redirect '/play_game'
+	end
+	redirect '/play_game'
+end
+
+post '/play_replay' do
+	
+	session[:board] = Board.new
+	session[:pvc] = PlayerComp.new
+	session[:state] = "Lets play"
+	redirect '/play_game'
 end
