@@ -42,7 +42,3 @@ window.fbAsyncInit = function() {
     }); 
 
     };
-
-    function logIn() {
-      window.location.replace("http://localhost:4567/contacts_page");
-    }
