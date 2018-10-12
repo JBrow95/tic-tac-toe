@@ -5,8 +5,20 @@
 <body onload="clicker()">  
         <script type="text/javascript">
         function clicker(){
-            document.getElementById("clack").click(); 
+            var clicks = 0
+            var i;
+            for (i = 0; i < 9; i++) { 
+                clicks += i;
+            }
+            document.getElementById("clack").innerHTML = clicks;
+            document.getElementById("clack").click();
         }
+
+        var clicks = 0;
+    function hello() {
+        clicks += 1;
+        document.getElementById("clacks").innerHTML = clicks;
+    };
         </script>
 
     <div class="wrap">

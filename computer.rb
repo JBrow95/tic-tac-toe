@@ -23,17 +23,17 @@ class RandomComp
             term = [[1, 2, 3],[3,1,2], [2, 3, 1], [4, 5, 6], [5, 6, 4], [7, 8, 9], [8, 9, 7], [1, 4, 7], [4, 7, 1], [2, 5, 8], [5, 8, 2], [3, 6, 9], [6, 9, 3], [3, 5, 7],[5, 7, 3], [1, 5, 9], [5, 9, 1], [1, 3, 2], [1, 7, 4], [1, 9, 5], [2, 8, 5], [3, 9, 6], [3, 7, 5], [4, 6, 5], [7, 9, 8], [4, 2, 1], [2, 6, 3], [8, 6, 9], [4, 8, 7], [1, 8, 4], [1, 6, 2], [4, 3, 2], [3, 8, 6], [2, 7, 4], [2, 9, 6],[1,9,6],[3,7,4],[4,6,8],[2,8,1]]
             if @c.available_options(1) == true
                 choice = 1
-            elsif @c_arr2.first == "1"
+            elsif @c_arr2.first == 1
                 choice = 5
-            elsif @c_arr2.first == "5"
+            elsif @c_arr2.first == 5
                 choice = 1
-            elsif @c_arr2.first == "2" || @c_arr2.first == "4" || @c_arr2.first == "6" || @c_arr2.first == "8"
+            elsif @c_arr2.first == 2 || @c_arr2.first == 4 || @c_arr2.first == 6 || @c_arr2.first == 8
                 choice = 5
-            elsif @c_arr2.first == "1" || @c_arr2.first == "7" || @c_arr2.first == "3" || @c_arr2.first == "9"
+            elsif @c_arr2.first == 1 || @c_arr2.first == 7 || @c_arr2.first == 3 || @c_arr2.first == 9
                 choice = 5
             end
 
-        if @c_arr2.include?("9") == true && @c_arr2.include?("8") == true && @c_arr2.include?("1") == true && @c_arr2.include?("3") == true && @c.available_options(2) == true
+        if @c_arr2.include?(9) == true && @c_arr2.include?(8) == true && @c_arr2.include?(1) == true && @c_arr2.include?(3) == true && @c.available_options(2) == true
             choice = 2
         end
 

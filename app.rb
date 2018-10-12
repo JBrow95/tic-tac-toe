@@ -266,7 +266,7 @@ post '/h_game' do
 	board.moves_taken = 0
 	p choice
 
-		if cvc.c.available_options(choice.to_i) == true
+		
 		var1, var2 = cvc.h_move2(Player.new("Jim", "X"))
 		cvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
@@ -280,7 +280,7 @@ post '/h_game' do
 			
 		end
 
-	
+		sleep 2
 		var3, var4 = cvc.h_move(Player.new("Tom", "O"))
 		cvc.c.update_board(var3.to_i, var4)
 		board.update_board(var3.to_i, var4)
@@ -290,9 +290,7 @@ post '/h_game' do
 			session[:state] = "Computer Won"
 			redirect '/h_game'
 		end
-	else
-		redirect '/game?invalide move!!!'
-	end
+	
 	if cvc.c.moves_taken >= 9
 		session[:state] = "Draw"
 		redirect '/h_game'
