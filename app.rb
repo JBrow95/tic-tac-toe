@@ -385,7 +385,7 @@ get '/r_game' do
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :s_comp, locals:{board: session[:board], state: state}
+	erb :r_comp, locals:{board: session[:board], state: state}
 end
 
 post '/r_game' do
@@ -396,7 +396,7 @@ post '/r_game' do
 	p choice
 
 		
-		var1, var2 = cvc.s_move(Player.new("Jim", "X"))
+		var1, var2 = cvc.random_move(Player.new("Jim", "X"))
 		cvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
 		cvc.c_arr << var1
@@ -410,7 +410,7 @@ post '/r_game' do
 		end
 
 		sleep 2
-		var3, var4 = cvc.s_move(Player.new("Tom", "O"))
+		var3, var4 = cvc.random_move(Player.new("Tom", "O"))
 		cvc.c.update_board(var3.to_i, var4)
 		board.update_board(var3.to_i, var4)
 		cvc.c_arr2 << var3

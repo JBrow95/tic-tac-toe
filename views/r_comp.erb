@@ -1,0 +1,58 @@
+<html>
+<head>
+    	<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body onload="clicker()">  
+        <script type="text/javascript">
+        function clicker(){
+        var text = document.getElementById("clack").click();
+        var i;
+        for (i = 0; i < 5; i++) {
+            if (i === 5) {
+                text = document.getElementById("clack");
+            } else { 
+                text += text;
+            };
+        };
+        }
+        </script>
+
+    <div class="wrap">
+    <div class="wrap1">
+        <h1><%= state%></h1>
+        <a href='/'><input type="submit" value="Home"></a>
+    </div>
+        <div class="wrap2">
+			<form method="post" action="r_game">
+				<table>
+					<%board.board.each_with_index do |n,i|%>
+                        <% if n != "X" && n != "O"%>
+                            <% n = "&nbsp;"%>
+                            <% elsif n == "X" %>
+                                <% n = "<img src='/images/fzombieX.png'/>"%>
+                            <% elsif n == "O" %>
+                                <% n = "<img src='/images/zombie-v.png'/>"%>
+                        <% end%>
+						<% if i == 0 || i == 3 || i == 6 %>
+						<tr>
+						<% end%>
+						<td>
+							<button id="clack" value='<%= i + 1 %>' name="choice"><%= n%></button>
+						</td>
+						<% if i == 2 || i == 5 || i == 8 %>
+						</tr>
+						<% end%>
+					<% end%>
+				</table>
+			</form>
+		</div>
+
+        <div class="wrap3">
+            <h1>Player2</h1>
+            <form method="post" action="r_replay">
+            <input type="submit" value="Play again">
+            </form>
+        </div>
+        </div>
+</body>
+</html>
