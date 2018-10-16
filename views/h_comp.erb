@@ -8,7 +8,11 @@
         var text = document.getElementById("clack").click();
         var i;
         for (i = 0; i < 5; i++) {
-            text += text;
+            if (i === 5) {
+                text = document.getElementById("clack");
+            } else { 
+                text += text;
+            };
         };
         }
         </script>
