@@ -381,17 +381,19 @@ post '/comp3' do
 end
 
 get '/r_game' do
-		
+	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :r_comp, locals:{board: session[:board], state: state}
+	erb :r_comp, locals:{board: session[:board], state: state, nom: nom}
 end
 
 post '/r_game' do
 	cvc = session[:cvc]
 	board = session[:board]
 	choice = params[:choice]
+	session[:nom] = params[:nom].to_i
+	session[:nom] += 1
 	board.moves_taken = 0
 	p choice
 
@@ -409,7 +411,7 @@ post '/r_game' do
 			
 		end
 
-		sleep 2
+		sleep 1
 		var3, var4 = cvc.random_move(Player.new("Tom", "O"))
 		cvc.c.update_board(var3, var4)
 		board.update_board(var3, var4)
@@ -428,7 +430,7 @@ post '/r_game' do
 end
 
 post '/r_replay' do
-	
+	session[:nom] = 0
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
 	session[:state] = "Lets play"
