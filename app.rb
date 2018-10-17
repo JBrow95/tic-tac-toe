@@ -397,8 +397,8 @@ post '/r_game' do
 
 		
 		var1, var2 = cvc.random_move(Player.new("Jim", "X"))
-		cvc.c.update_board(var1.to_i, var2)
-		board.update_board(var1.to_i, var2)
+		cvc.c.update_board(var1, var2)
+		board.update_board(var1, var2)
 		cvc.c_arr << var1
 		print cvc.c_arr
 		print board.board
@@ -411,8 +411,8 @@ post '/r_game' do
 
 		sleep 2
 		var3, var4 = cvc.random_move(Player.new("Tom", "O"))
-		cvc.c.update_board(var3.to_i, var4)
-		board.update_board(var3.to_i, var4)
+		cvc.c.update_board(var3, var4)
+		board.update_board(var3, var4)
 		cvc.c_arr2 << var3
 		board.check_win("O")
 		if board.win
