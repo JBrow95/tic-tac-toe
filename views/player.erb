@@ -11,6 +11,7 @@
     </div>
         <div class="wrap2">
 			<form method="post" action="play_game">
+            <input type="hidden" name="nom" id="nom" value="<%= nom%>">
 				<table>
 					<%board.board.each_with_index do |n,i|%>
                         <% if n != "X" && n != "O"%>
