@@ -5,15 +5,14 @@
 <body onload="clicker()">  
         <script type="text/javascript">
         function clicker(){
-        var text = document.getElementById("clack").click();
-        var i;
-        for (i = 0; i < 5; i++) {
-            if (i === 5) {
-                text = document.getElementById("clack");
-            } else { 
-                text += text;
-            };
-        };
+        var text = document.getElementById("clack");
+        var i = document.getElementById('nom').value;
+        console.log(i);
+        if (i === '5') {
+            text.disabled = "disabled";
+        } else {
+            text.click();
+        }
         }
         </script>
 
@@ -24,6 +23,7 @@
     </div>
         <div class="wrap2">
 			<form method="post" action="s_game">
+            <input type="hidden" name="nom" id="nom" value="<%= nom%>">
 				<table>
 					<%board.board.each_with_index do |n,i|%>
                         <% if n != "X" && n != "O"%>
