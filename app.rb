@@ -322,17 +322,19 @@ post '/comp2' do
 end
 
 get '/s_game' do
-		
+	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :s_comp, locals:{board: session[:board], state: state}
+	erb :s_comp, locals:{board: session[:board], state: state, nom: nom}
 end
 
 post '/s_game' do
 	cvc = session[:cvc]
 	board = session[:board]
 	choice = params[:choice]
+	session[:nom] = params[:nom].to_i
+	session[:nom] += 1
 	board.moves_taken = 0
 	p choice
 
@@ -369,7 +371,7 @@ post '/s_game' do
 end
 
 post '/s_replay' do
-	
+	session[:nom] = 0
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
 	session[:state] = "Lets play"
