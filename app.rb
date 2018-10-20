@@ -322,11 +322,12 @@ post '/comp2' do
 end
 
 get '/s_game' do
+	res = session[:res] || false
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :s_comp, locals:{board: session[:board], state: state, nom: nom}
+	erb :s_comp, locals:{board: session[:board], state: state, nom: nom, res: res}
 end
 
 post '/s_game' do
@@ -335,10 +336,12 @@ post '/s_game' do
 	choice = params[:choice]
 	session[:nom] = params[:nom].to_i
 	session[:nom] += 1
+	session[:res] = params[:res]
+	session[:res] = false
 	board.moves_taken = 0
 	p choice
 
-		
+	if board.win != true	
 		var1, var2 = cvc.s_move(Player.new("Jim", "X"))
 		cvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
@@ -348,6 +351,7 @@ post '/s_game' do
 		board.check_win("X")
 		if board.win
 			session[:state] = "Player Won"
+			session[:res] = true
 			redirect '/s_game'
 			
 		end
@@ -360,6 +364,7 @@ post '/s_game' do
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
+			session[:res] = true
 			redirect '/s_game'
 		end
 	
@@ -369,8 +374,10 @@ post '/s_game' do
 	end
 	redirect '/s_game'
 end
+end
 
 post '/s_replay' do
+	session[:res] = false
 	session[:nom] = 0
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
@@ -388,11 +395,12 @@ post '/comp3' do
 end
 
 get '/r_game' do
+	res = session[:res] || false
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :r_comp, locals:{board: session[:board], state: state, nom: nom}
+	erb :r_comp, locals:{board: session[:board], state: state, nom: nom, res: res}
 end
 
 post '/r_game' do
@@ -401,10 +409,12 @@ post '/r_game' do
 	choice = params[:choice]
 	session[:nom] = params[:nom].to_i
 	session[:nom] += 1
+	session[:res] = params[:res]
+	session[:res] = false
 	board.moves_taken = 0
 	p choice
 
-		
+	if board.win != true
 		var1, var2 = cvc.random_move(Player.new("Jim", "X"))
 		cvc.c.update_board(var1, var2)
 		board.update_board(var1, var2)
@@ -414,8 +424,8 @@ post '/r_game' do
 		board.check_win("X")
 		if board.win
 			session[:state] = "Player Won"
-			redirect '/r_game'
-			
+			session[:res] = true
+			redirect '/r_game'		
 		end
 
 		sleep 1
@@ -426,11 +436,14 @@ post '/r_game' do
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
+			session[:res] = true
 			redirect '/r_game'
 		end
 	
 	if cvc.c.moves_taken >= 9
 		session[:state] = "Draw"
+		redirect '/r_game'
+	end
 		redirect '/r_game'
 	end
 	redirect '/r_game'
@@ -441,5 +454,6 @@ post '/r_replay' do
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
 	session[:state] = "Lets play"
+	session[:res] = false
 	redirect '/r_game'
 end
