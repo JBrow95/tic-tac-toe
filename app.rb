@@ -187,11 +187,12 @@ post '/pvp' do
 end
 
 get '/play_game' do
+	won = session[:won] || ""
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
 	state = session[:state] || "Lets Play"
-	erb :player, locals:{board: session[:board], state: state, nom: nom}
+	erb :player, locals:{board: session[:board], state: state, nom: nom, won: won}
 end
 
 post '/play_game' do
@@ -200,6 +201,7 @@ post '/play_game' do
 	choice = params[:choice]
 	session[:nom] = params[:nom].to_i
 	session[:nom] += 1
+	session[:won] = "false"
 	board.moves_taken = 0
 
 	p choice
@@ -215,6 +217,7 @@ post '/play_game' do
 				board.check_win("X")
 					if board.win
 						session[:state] = "Player1 Won"
+						session[:won] = "true"
 						redirect '/play_game'
 					end
 			else
@@ -224,6 +227,7 @@ post '/play_game' do
 				board.check_win("O")
 					if board.win
 						session[:state] = "Player2 Won"
+						session[:won] = true
 						redirect '/play_game'
 					end
 				end
@@ -374,6 +378,7 @@ post '/s_game' do
 	end
 	redirect '/s_game'
 end
+	
 end
 
 post '/s_replay' do
