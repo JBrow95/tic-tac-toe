@@ -256,6 +256,7 @@ post '/play_game' do
 					end
 				end
 		else
+			session[:nom] -= 1
 			redirect '/play_game?invalide move!!!'
 		end
 	if pvc.c.moves_taken >= 9
