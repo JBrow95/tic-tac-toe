@@ -2,7 +2,26 @@
 <head>
     	<link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
-<body>  
+<body onload="checkMatch()">  
+    <script type="text/javascript">
+    function checkMatch(){
+        var btns = document.getElementsByName('choice');
+        if (document.getElementById('won').value === "true") {
+            btns.forEach(function(entry) {
+                entry.disabled = true;
+            });
+            console.log("win");
+        }
+        else {
+            btns.forEach(function(entry) {
+                entry.disabled = false;
+            });
+            console.log("win");
+        }
+        
+        console.log(btns);
+    }
+    </script>
 
     <div class="wrap">
     <div class="wrap1">
@@ -11,6 +30,7 @@
     </div>
         <div class="wrap2">
 			<form method="post" action="game">
+            <input type="hidden" name="won" id="won" value="<%= won%>">
 				<table>
 					<%board.board.each_with_index do |n,i|%>
                         <% if n != "X" && n != "O"%>

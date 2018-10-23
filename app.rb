@@ -20,45 +20,50 @@ post '/seq' do
 end
 
 get '/seq_game' do
-		
+	won = session[:won] || false
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
-	
-	erb :seq_game, locals:{board: session[:board]}
+	state = session[:state] || "Lets Play"
+	erb :seq_game, locals:{board: session[:board], won: won, state: state}
 end
 
 post '/seq_game' do
 	pvc = session[:pvc]
 	board = session[:board]
 	choice = params[:choice]
+	session[:won] = "false"
 	board.moves_taken = 0
 	p choice
-
+	
 		if pvc.c.available_options(choice.to_i) == true
 		pvc.c.update_board(choice.to_i, "X")
 		board.update_board(choice.to_i, "X")
 		pvc.c_arr << choice
 		print pvc.c_arr
 		print board.board
-		pvc.c.check_win("X")
+		board.check_win("X")
 		if board.win
-			redirect '/seq_game?playerwins'
-			
+			session[:state] = "Player Won"
+			session[:won] = "true"
+			redirect '/seq_game'
 		end
 
 	
 		var1, var2 = pvc.s_move(Player.new("Tom", "O"))
 		pvc.c.update_board(var1.to_i, var2)
 		board.update_board(var1.to_i, var2)
-		pvc.c.check_win("O")
+		board.check_win("O")
 		if board.win
-			redirect '/seq_game?ComputerWins'
+			session[:state] = "Computer Won"
+			session[:won] = "true"
+			redirect '/seq_game'
 		end
 	else
 		redirect '/seq_game?invalide move!!!'
 	end
 	if board.moves_taken >= 9
-		redirect '/?draw'
+		session[:state] = "Draw"
+		redirect '/seq_game'
 	end
 	redirect '/seq_game'
 end
@@ -66,21 +71,24 @@ end
 post '/seq_replay' do
 	session[:board] = Board.new
 	session[:pvc] = PlayerComp.new
+	session[:state] = "Lets play"
+	session[:won] = "false"
 	redirect '/seq_game'
 end
 
 get '/game' do
-		
+	won = session[:won] || false
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
 	state = session[:state] || "Lets Play"
-	erb :game, locals:{board: session[:board], state: state}
+	erb :game, locals:{board: session[:board], state: state, won: won}
 end
 
 post '/game' do
 	pvc = session[:pvc]
 	board = session[:board]
 	choice = params[:choice]
+	session[:won] = "false"
 	board.moves_taken = 0
 	p choice
 
@@ -93,6 +101,7 @@ post '/game' do
 		board.check_win("X")
 		if board.win
 			session[:state] = "Player Won"
+			session[:won] = "true"
 			redirect '/game'
 			
 		end
@@ -104,6 +113,7 @@ post '/game' do
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
+			session[:won] = "true"
 			redirect '/game'
 		end
 	else
@@ -111,6 +121,7 @@ post '/game' do
 	end
 	if pvc.c.moves_taken >= 9
 		session[:state] = "Draw"
+		session[:won] = "true"
 		redirect '/game'
 	end
 	redirect '/game'
@@ -121,6 +132,7 @@ post '/replay' do
 	session[:board] = Board.new
 	session[:pvc] = PlayerComp.new
 	session[:state] = "Lets play"
+	session[:won] = "false"
 	redirect '/game'
 end
 
@@ -132,17 +144,19 @@ post '/rand' do
 end
 
 get '/rand_game' do
-		
+	won = session[:won] || false
+	state = session[:state] || "Lets Play"
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
 	
-	erb :random, locals:{board: session[:board]}
+	erb :random, locals:{board: session[:board], state: state, won: won}
 end
 
 post '/rand_game' do
 	pvc = session[:pvc]
 	board = session[:board]
 	choice = params[:choice]
+	session[:won] = "false"
 	board.moves_taken = 0
 	p choice
 
@@ -154,8 +168,9 @@ post '/rand_game' do
 		print board.board
 		board.check_win("X")
 		if board.win
-			redirect '/rand_game?playerwins'
-			
+			session[:state] = "Player Wins"
+			session[:won] = "true"
+			redirect '/rand_game'
 		end
 
 	
@@ -164,18 +179,24 @@ post '/rand_game' do
 		board.update_board(var1.to_i, var2)
 		board.check_win("O")
 		if board.win
-			redirect '/rand_game?ComputerWins'
+			session[:state] = "Player Wins"
+			session[:won] = "true"
+			redirect '/rand_game'
 		end
 	else
 		redirect '/rand_game?invalide move!!!'
 	end
 	if board.moves_taken >= 9
-		redirect '/?draw'
+		session[:state] = "Draw"
+		session[:won] = "true"
+		redirect '/rand_game'
 	end
 	redirect '/rand_game'
 end
 
 post '/rand_replay' do
+	session[:won] = "false"
+	session[:state] = "Lets Play"
 	session[:board] = Board.new
 	session[:pvc] = PlayerComp.new
 	redirect '/rand_game'
