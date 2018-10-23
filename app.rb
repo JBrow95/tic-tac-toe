@@ -186,8 +186,11 @@ post '/pvp' do
 	redirect '/play_game'
 end
 
+
+#========================================
+
 get '/play_game' do
-	won = session[:won] || ""
+	won = session[:won] || false
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:pvc] = session[:pvc] || PlayerComp.new
@@ -227,7 +230,7 @@ post '/play_game' do
 				board.check_win("O")
 					if board.win
 						session[:state] = "Player2 Won"
-						session[:won] = true
+						session[:won] = "true"
 						redirect '/play_game'
 					end
 				end
@@ -243,6 +246,7 @@ end
 
 post '/play_replay' do
 	session[:nom] = 0
+	session[:won] = "false"
 	session[:board] = Board.new
 	session[:pvc] = PlayerComp.new
 	session[:state] = "Lets play"
@@ -259,11 +263,12 @@ post '/comp1' do
 end
 
 get '/h_game' do
+	won = session[:won] || false
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :h_comp, locals:{board: session[:board], state: state, nom: nom}
+	erb :h_comp, locals:{board: session[:board], state: state, nom: nom, won: won}
 end
 
 post '/h_game' do
@@ -272,6 +277,7 @@ post '/h_game' do
 	choice = params[:choice]
 	session[:nom] = params[:nom].to_i
 	session[:nom] += 1
+	session[:won] = "false"
 	board.moves_taken = 0
 	p choice
 
@@ -285,6 +291,7 @@ post '/h_game' do
 		board.check_win("X")
 		if board.win
 			session[:state] = "Player Won"
+			session[:won] = "true"
 			redirect '/h_game'
 			
 		end
@@ -297,6 +304,7 @@ post '/h_game' do
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
+			session[:won] = "true"
 			redirect '/h_game'
 		end
 	
@@ -309,6 +317,7 @@ end
 
 post '/h_replay' do
 	session[:nom] = 0
+	session[:won] = "false"
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
 	session[:state] = "Lets play"
@@ -326,12 +335,12 @@ post '/comp2' do
 end
 
 get '/s_game' do
-	res = session[:res] || false
+	won = session[:won] || false
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :s_comp, locals:{board: session[:board], state: state, nom: nom, res: res}
+	erb :s_comp, locals:{board: session[:board], state: state, nom: nom, won: won}
 end
 
 post '/s_game' do
@@ -340,8 +349,7 @@ post '/s_game' do
 	choice = params[:choice]
 	session[:nom] = params[:nom].to_i
 	session[:nom] += 1
-	session[:res] = params[:res]
-	session[:res] = false
+	session[:won] = "false"
 	board.moves_taken = 0
 	p choice
 
@@ -355,7 +363,7 @@ post '/s_game' do
 		board.check_win("X")
 		if board.win
 			session[:state] = "Player Won"
-			session[:res] = true
+			session[:won] = "true"
 			redirect '/s_game'
 			
 		end
@@ -368,7 +376,7 @@ post '/s_game' do
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
-			session[:res] = true
+			session[:won] = "true"
 			redirect '/s_game'
 		end
 	
@@ -382,7 +390,7 @@ end
 end
 
 post '/s_replay' do
-	session[:res] = false
+	session[:won] = "false"
 	session[:nom] = 0
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
@@ -400,12 +408,12 @@ post '/comp3' do
 end
 
 get '/r_game' do
-	res = session[:res] || false
+	won = session[:won] || false
 	nom = session[:nom] || 0
 	session[:board] = session[:board] || Board.new
 	session[:cvc] = session[:cvc] || RandomComp.new
 	state = session[:state] || "Lets Play"
-	erb :r_comp, locals:{board: session[:board], state: state, nom: nom, res: res}
+	erb :r_comp, locals:{board: session[:board], state: state, nom: nom, won: won}
 end
 
 post '/r_game' do
@@ -414,8 +422,7 @@ post '/r_game' do
 	choice = params[:choice]
 	session[:nom] = params[:nom].to_i
 	session[:nom] += 1
-	session[:res] = params[:res]
-	session[:res] = false
+	session[:won] = "false"
 	board.moves_taken = 0
 	p choice
 
@@ -429,7 +436,7 @@ post '/r_game' do
 		board.check_win("X")
 		if board.win
 			session[:state] = "Player Won"
-			session[:res] = true
+			session[:won] = "true"
 			redirect '/r_game'		
 		end
 
@@ -441,7 +448,7 @@ post '/r_game' do
 		board.check_win("O")
 		if board.win
 			session[:state] = "Computer Won"
-			session[:res] = true
+			session[:won] = "true"
 			redirect '/r_game'
 		end
 	
@@ -459,6 +466,6 @@ post '/r_replay' do
 	session[:board] = Board.new
 	session[:cvc] = RandomComp.new
 	session[:state] = "Lets play"
-	session[:res] = false
+	session[:won] = "false"
 	redirect '/r_game'
 end
