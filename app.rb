@@ -310,6 +310,7 @@ post '/h_game' do
 	
 	if cvc.c.moves_taken >= 9
 		session[:state] = "Draw"
+		session[:won] = "true"
 		redirect '/h_game'
 	end
 	redirect '/h_game'
@@ -368,7 +369,7 @@ post '/s_game' do
 			
 		end
 
-		sleep 2
+		sleep 1
 		var3, var4 = cvc.s_move(Player.new("Tom", "O"))
 		cvc.c.update_board(var3.to_i, var4)
 		board.update_board(var3.to_i, var4)
@@ -382,6 +383,7 @@ post '/s_game' do
 	
 	if cvc.c.moves_taken >= 9
 		session[:state] = "Draw"
+		session[:won] = "true"
 		redirect '/s_game'
 	end
 	redirect '/s_game'
@@ -454,11 +456,12 @@ post '/r_game' do
 	
 	if cvc.c.moves_taken >= 9
 		session[:state] = "Draw"
+		session[:won] = "true"
 		redirect '/r_game'
 	end
 		redirect '/r_game'
-	end
-	redirect '/r_game'
+end
+
 end
 
 post '/r_replay' do

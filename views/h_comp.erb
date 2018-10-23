@@ -5,14 +5,21 @@
 <body onload="clicker()">  
         <script type="text/javascript">
          function clicker(){
-        var text = document.getElementById("clack");
+             var text = document.getElementById('clack');
+        var btns = document.getElementsByName('choice');
         var i = document.getElementById('nom').value;
         console.log(i);
-        if (i === '5') {
-            text.disabled = "disabled";
-        } else {
+        if (document.getElementById('won').value === "true") {
+            btns.forEach(function(entry) {
+                entry.disabled = true;
+            });
+            console.log("win");
+        }
+        else {
             text.click();
         }
+        
+        console.log(btns);
         }
         </script>
 
@@ -24,6 +31,7 @@
         <div class="wrap2">
 			<form method="post" action="h_game">
             <input type="hidden" name="nom" id="nom" value="<%= nom%>">
+            <input type="hidden" name="won" id="won" value="<%= won%>">
 				<table>
 					<%board.board.each_with_index do |n,i|%>
                         <% if n != "X" && n != "O"%>
