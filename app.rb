@@ -179,7 +179,7 @@ post '/rand_game' do
 		board.update_board(var1.to_i, var2)
 		board.check_win("O")
 		if board.win
-			session[:state] = "Player Wins"
+			session[:state] = "Computer Wins"
 			session[:won] = "true"
 			redirect '/rand_game'
 		end
@@ -240,7 +240,7 @@ post '/play_game' do
 				print board.board
 				board.check_win("X")
 					if board.win
-						session[:state] = "Player1 Won"
+						session[:state] = "Player2 Won"
 						session[:won] = "true"
 						redirect '/play_game'
 					end
@@ -250,7 +250,7 @@ post '/play_game' do
 				board.update_board(choice.to_i, "O")
 				board.check_win("O")
 					if board.win
-						session[:state] = "Player2 Won"
+						session[:state] = "Player1 Won"
 						session[:won] = "true"
 						redirect '/play_game'
 					end
